@@ -99,14 +99,14 @@ def playMusic(filename,loops=0, start=0.0, value=0.5):
     # os.remove('audio.mp3')
 print(r'''
 
-'  ___  ___                          _     _                                     _       __    _____ 
-'  |  \/  |                         (_)   (_)                                   | |     /  |  |  ___|
-'  | .  . | ___ _ __ ___   ___  _ __ _ _____ _ __   __ _  __      _____  _ __ __| |___  `| |  |___ \ 
-'  | |\/| |/ _ \ '_ ` _ \ / _ \| '__| |_  / | '_ \ / _` | \ \ /\ / / _ \| '__/ _` / __|  | |      \ \
-'  | |  | |  __/ | | | | | (_) | |  | |/ /| | | | | (_| |  \ V  V / (_) | | | (_| \__ \ _| |__/\__/ /
-'  \_|  |_/\___|_| |_| |_|\___/|_|  |_/___|_|_| |_|\__, |   \_/\_/ \___/|_|  \__,_|___/ \___(_)____/ 
-'                                                   __/ |                                            
-'                                                  |___/                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+  ___  ___                          _     _                                     _       _____  _____ 
+  |  \/  |                         (_)   (_)                                   | |     / __  \|  _  |
+  | .  . | ___ _ __ ___   ___  _ __ _ _____ _ __   __ _  __      _____  _ __ __| |___  `' / /'| |/' |
+  | |\/| |/ _ \ '_ ` _ \ / _ \| '__| |_  / | '_ \ / _` | \ \ /\ / / _ \| '__/ _` / __|   / /  |  /| |
+  | |  | |  __/ | | | | | (_) | |  | |/ /| | | | | (_| |  \ V  V / (_) | | | (_| \__ \ ./ /___\ |_/ /
+  \_|  |_/\___|_| |_| |_|\___/|_|  |_/___|_|_| |_|\__, |   \_/\_/ \___/|_|  \__,_|___/ \_____(_)___/ 
+                                                   __/ |                                             
+                                                  |___/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                                 ©Waterking
 ''')
 def read_word(word,times):
@@ -133,9 +133,16 @@ def read_word(word,times):
     # for i in range(times):
     #     px.say(word)
     # px.runAndWait()
-    
+def read_history_file(filename):
+    with open("以往数据\{}错误单词.txt".format(filename), encoding='UTF-8')as f:
+        time_f=[]
+        fi=f.read()
+        fil=fi.split('\n')  
+        time_f+=map(eval,(fil[-2].split(';')[:-1]))
+    return time_f
 def remember(answer,result,aquestion,aw,wrong_answer,number,rol):
     early_end='0'
+    print('共{}个'.format(len(result)))
     models=input('选择背诵模式：\n 1--------30个一组\n 2--------50个一组\n 3--------复习所有单词\n')
     if models=='1':
         num=30
@@ -291,6 +298,11 @@ while number!='-1':
                 for lili in filelist:
                     zz.writelines(lili+'\n')
                 zz.close()
+            filename="以往数据\{}错误单词.txt".format(str(number))
+            if os.path.exists(filename):
+                review=input('是否复习错误单词？(1:是，其余：否)')
+                if review=='1':
+                    result=read_history_file(str(number))
             remember(answer,result,aquestion,aw,wrong_answer,number,rol)
             print('\n')
             if len(aquestion)!=len(result):
