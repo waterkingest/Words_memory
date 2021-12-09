@@ -11,26 +11,6 @@ os.system('')
 pl.rcParams['font.family'] = ['sans-serif']
 pl.rcParams['font.sans-serif'] = ['SimHei']
 
-# from aip import AipSpeech
-
-# def generateMusic(word):
-#     """ 你的 APPID AK SK """
-#     APP_ID = 'a24711947'
-#     API_KEY = 'HeGSarBun8THlEQge5Ih84Bh'
-#     SECRET_KEY = 'LIBY5NNGFVivB0z284S0OSrgGzjZY3wd'
-
-#     client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
-
-#     # 详细参数可看python sdk 文档
-#     result = client.synthesis(word, 'zh', 1, {
-#         'vol': 5,
-#         'per': 3,
-#         'spd': 7,
-#     })
-#     # 识别正确返回语音二进制 错误则返回dict 参照下面错误码
-#     if not isinstance(result, dict):
-#         with open('audio.mp3', 'wb') as f:
-#             f.write(result)
 def get_translate_jinshan(word):
     url = "https://dict-mobile.iciba.com/interface/index.php?c=word&m=getsuggest&nums=10&is_need_mean=1&word="
     try:
@@ -42,8 +22,8 @@ def get_translate_jinshan(word):
     except:
         return False
 def get_translate_Baidu(word):
-    appid = '20201121000622493'
-    appkey = 'H0YKKsTNsNHOSZpsosvm'
+    appid = '百度申请的id'
+    appkey = '百度申请的key'
 
     # For list of language codes, please refer to `https://api.fanyi.baidu.com/doc/21`
     from_lang = 'en'
